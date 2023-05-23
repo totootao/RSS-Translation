@@ -13,3 +13,4 @@
 
  - source001 [https://www.androidpolice.com/feed/](https://www.androidpolice.com/feed/) -> [androidpolice.xml](rss/androidpolice.xml)
  - source002 [https://www.ghacks.net/feed/](https://www.ghacks.net/feed/) -> [ghacks.xml](rss/ghacks.xml)
+ - lifehacker [https://lifehacker.com/rss](https://lifehacker.com/rss) -> [lifehacker.xml](rss/lifehacker.xml)
