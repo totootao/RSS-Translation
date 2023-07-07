@@ -11,4 +11,4 @@
 
 ## 已转换翻译源
 
- - source001 [https://www.androidpolice.com/feed/](https://www.androidpolice.com/feed/) -> [androidpolice.xml](rss/androidpolice.xml)
+ - source001 [https://rsshub.rssforever.com/scmp/91](https://rsshub.rssforever.com/scmp/91) -> [nanhuazaobao.xml](rss/nanhuazaobao.xml)
