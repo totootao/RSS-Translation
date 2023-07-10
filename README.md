@@ -11,4 +11,4 @@
 
 ## 已转换翻译源
 
- - source001 [https://rsshub.rssforever.com/scmp/91](https://rsshub.rssforever.com/scmp/91) -> [nanhuazaobao.xml](rss/nanhuazaobao.xml)
+ - source001 [https://feedx.net/rss/scmp.xml](https://feedx.net/rss/scmp.xml) -> [nanhuazaobao.xml](rss/nanhuazaobao.xml)
