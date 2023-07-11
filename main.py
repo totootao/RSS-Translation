@@ -1,6 +1,9 @@
 # coding:utf-8 
 import configparser
+
+import requests
 from pygtrans import Translate
+import xml.etree.cElementTree as et
 from bs4 import BeautifulSoup
 import sys
 import os
@@ -69,51 +72,36 @@ def tran(sec):
 
 
     GT = Translate()
-    headers={
-        'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36 LBBROWSER'
-        }
-    req = urllib.request.Request(url, headers=headers)
 
- 
-    html_doc=request.urlopen(req).read().decode('utf8')
+    r = requests.get(url, verify=False)
+    r.encoding = "utf-8"
+    html_doc = r.text
     new_md5= get_md5_value(html_doc)
+
 
     if old_md5 == new_md5:
         return
     else:
         set_cfg(sec,'md5',new_md5)
     # move style
-    html_doc=html_doc.replace('<?', '</s')
-    html_doc=html_doc.replace('?>', '/>')
-    
-    soup = BeautifulSoup(html_doc, 'html.parser')
-    items=soup.find_all('item')
-    for idx,e in enumerate(items):
-        if idx >max_item:
-                e.decompose()
-    
-    content= str(soup)
-    
-    content=content.replace('title>', 'stitle>')
-    content=content.replace( '<pubdate>','<pubDate><span translate="no">')
-    content=content.replace( '</pubdate>','</span></pubdate>')
-    # print(content)
-    
-    
-    _text = GT.translate(content,target=target,source=source)
-    
-    
+
+    root = et.XML(html_doc)
+    for item in root.iter("title"):
+        print(item.text)
+        item.text = GT.translate(item.text, target=target, source=source).translatedText
+        print(item.text)
+    for item in root.iter("description"):
+        item.text = item.text.replace('&lt;', '<').replace('&gt;', '>')
+        print(item.text)
+        item.text = GT.translate(item.text, target=target, source=source).translatedText
+        print(item.text)
+
+    content = et.tostring(root).decode('utf-8')
+
     with open(out_dir,'w',encoding='utf-8') as f:
-        c=_text.translatedText
-        
-        c=c.replace('stitle>', 'title>')
-        c=c.replace('<span translate="no">', '')
-        c=c.replace('</span></pubdate>', '</pubDate>') # 对于ttrss需要为pubDate才会识别正确
-        c=c.replace('&gt','>') # &gt 会影响识别
-        
-        f.write(c)
-        #print(c)
-        #f.write(content)
+        f.write('<?xml version="1.0" encoding="UTF-8"?>')
+        f.write(content)
+
     print("GT: "+ url +" > "+ out_dir)
 
 for x in secs[1:]:
