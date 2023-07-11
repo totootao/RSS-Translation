@@ -12,3 +12,4 @@
 ## 已转换翻译源
 
  - source001 [https://feedx.net/rss/scmp.xml](https://feedx.net/rss/scmp.xml) -> [nanhuazaobao.xml](rss/nanhuazaobao.xml)
+ - source002 [https://feedx.net/rss/washingtonpost.xml](https://feedx.net/rss/washingtonpost.xml) -> [washingtonpost.xml](rss/washingtonpost.xml)
