@@ -1,22 +1,12 @@
 # coding:utf-8 
 import configparser
-
 import requests
 from pygtrans import Translate
 import xml.etree.cElementTree as et
-from bs4 import BeautifulSoup
-import sys
 import os
-from urllib import request
-import urllib
-# pip install pygtrans -i https://pypi.org/simple
-# ref:https://zhuanlan.zhihu.com/p/390801784
-# ref:https://beautifulsoup.readthedocs.io/zh_CN/latest/
-# ref:https://pygtrans.readthedocs.io/zh_CN/latest/langs.html
-# client = Translate()
-# text = client.translate('Google Translate')
-# print(text.translatedText)  # 谷歌翻译
 import hashlib
+import dacankao
+import jinja2
 def get_md5_value(src):
     _m = hashlib.md5()
     _m.update(src.encode('utf-8'))
@@ -107,6 +97,14 @@ def tran(sec):
 for x in secs[1:]:
     tran(x)
     print(config.items(x))
+
+f = open("rss.xml",encoding="UTF-8")
+contentrssxml = f.read()
+template = jinja2.Template(contentrssxml)
+
+
+with open('rss/dacankao.xml','w',encoding="UTF-8") as fdacankao:
+    fdacankao.write(template.render(dacankao.ctx(44)))
 
 with open('test.ini','w') as configfile:
     config.write(configfile)
