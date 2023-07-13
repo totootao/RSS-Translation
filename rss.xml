@@ -11,7 +11,7 @@
         <item>
             <title><![CDATA[{{item.title|safe}}]]></title>
             <link href="{{item.link}}"/>
-            <description type="html" src="{{item.link}}"><![CDATA[{{item.description|safe}}]]></description>
+            <description><![CDATA[{{item.description|safe}}]]></description>
             <published>{{item.pubDate|default(now)}}</published>
         </item>
     {% endfor %}
