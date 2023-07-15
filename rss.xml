@@ -10,7 +10,7 @@
     {% for item in items %}
         <item>
             <title><![CDATA[{{item.title|safe}}]]></title>
-            <link href="{{item.link}}"/>
+            <link><![CDATA[{{item.link|safe}}]]></link>
             <description><![CDATA[{{item.description|safe}}]]></description>
             <published>{{item.pubDate|default(now)}}</published>
         </item>
