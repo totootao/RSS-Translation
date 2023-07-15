@@ -8,7 +8,7 @@ def parse(post):
     item={}
     item['title'] = post.getElementsByTagName('title')[0].childNodes[0].data
     item['link'] = post.getElementsByTagName('link')[0].childNodes[0].data
-    item['pubDate'] = '2023-05-20 01:00:00'
+    item['pubDate'] = post.getElementsByTagName('pubDate')
     item['author'] = post.getElementsByTagName('author')[0].childNodes[0].data
     item['description'] = fetch(post.getElementsByTagName('link')[0].childNodes[0].data).css('td.t_f').get().replace('\n','').replace('\r','')
     return item

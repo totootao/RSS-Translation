@@ -12,7 +12,7 @@
             <title><![CDATA[{{item.title|safe}}]]></title>
             <link><![CDATA[{{item.link|safe}}]]></link>
             <description><![CDATA[{{item.description|safe}}]]></description>
-            <published>{{item.pubDate|default(now)}}</published>
+            <pubDate>{{item.pubDate|default(now)}}</pubDate>
         </item>
     {% endfor %}
     </channel>
