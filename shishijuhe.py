@@ -20,10 +20,14 @@ def parse(post):
         if not tree.css('span[id=copyright_logo]'):
             item['title']='delete'
         else:
-            item['description'] = tree.css('div[id=page-content]').get().replace('\n','').replace('\r','')
-            item['title'] = post.getElementsByTagName('title')[0].childNodes[0].data
-            item['link'] = post.getElementsByTagName('link')[0].childNodes[0].data
-            item['pubDate'] = post.getElementsByTagName('pubDate')[0].childNodes[0].data
+            page_content= tree.css('div[id=page-content]').get()
+            if page_content is None:
+                item['title']='delete'
+            else:
+                item['description'] = page_content.replace('\n','').replace('\r','')
+                item['title'] = post.getElementsByTagName('title')[0].childNodes[0].data
+                item['link'] = post.getElementsByTagName('link')[0].childNodes[0].data
+                item['pubDate'] = post.getElementsByTagName('pubDate')[0].childNodes[0].data
     return item
 
 def ctx(category=''):

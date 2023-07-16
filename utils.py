@@ -12,5 +12,6 @@ def fetch(url: str, headers: dict=DEFAULT_HEADERS, proxies: dict=None):
         print(f'[Err] {e}')
     else:
         html = res.text
+        # print(url)
         tree = Selector(text=html)
         return tree
