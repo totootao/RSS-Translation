@@ -7,6 +7,10 @@ import os
 import hashlib
 import dacankao
 import jinja2
+
+import shishijuhe
+
+
 def get_md5_value(src):
     _m = hashlib.md5()
     _m.update(src.encode('utf-8'))
@@ -105,6 +109,13 @@ template = jinja2.Template(contentrssxml)
 
 with open('rss/dacankao.xml','w',encoding="UTF-8") as fdacankao:
     fdacankao.write(template.render(dacankao.ctx(44)))
+
+f = open("rss.xml", encoding="UTF-8")
+contentrssxml = f.read()
+template = jinja2.Template(contentrssxml)
+
+with open('rss/shishijuhe.xml', 'w', encoding="UTF-8") as fdacankao:
+    fdacankao.write(template.render(shishijuhe.ctx(category='wechatefb')))
 
 with open('test.ini','w') as configfile:
     config.write(configfile)
