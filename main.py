@@ -1,5 +1,7 @@
 # coding:utf-8 
 import configparser
+import datetime
+
 import requests
 from pygtrans import Translate
 import xml.etree.cElementTree as et
@@ -98,9 +100,10 @@ def tran(sec):
 
     print("GT: "+ url +" > "+ out_dir)
 
-for x in secs[1:]:
-    tran(x)
-    print(config.items(x))
+if datetime.datetime.now().hour%2==0 and datetime.datetime.now().minute<12:
+    for x in secs[1:]:
+        tran(x)
+        print(config.items(x))
 
 f = open("rss.xml",encoding="UTF-8")
 contentrssxml = f.read()
