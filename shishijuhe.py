@@ -18,6 +18,7 @@ def parse(post):
     if not list:
         item['description'] = description
     else:
+        item['link']=list[0]
         item['description'] = fetch(list[0]).css('div[id=page-content]').get().replace('\n','').replace('\r','')
     return item
 
