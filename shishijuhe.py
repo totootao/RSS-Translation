@@ -29,7 +29,7 @@ def ctx(category=''):
     items= list(map(parse,posts))
 
     return {
-        'title':'大参考',
+        'title':'时事聚合-原文',
         'description':'通过全球政治经济评论,预知世界局势发展,把握外汇期货证券行情运行趋势,为您的生活理财服务。',
         'link':'http://www.dacankao.com/',
         'author':'totootao',
