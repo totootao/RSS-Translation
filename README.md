@@ -11,3 +11,10 @@
 
 ## 已转换翻译源
 
+ - source001 [https://feedx.net/rss/scmp.xml](https://feedx.net/rss/scmp.xml) -> [nanhuazaobao.xml](rss/nanhuazaobao.xml)
+ - source002 [https://feedx.net/rss/washingtonpost.xml](https://feedx.net/rss/washingtonpost.xml) -> [washingtonpost.xml](rss/washingtonpost.xml)
+ - source003 [https://feedx.net/rss/guardian.xml](https://feedx.net/rss/guardian.xml) -> [guardian.xml](rss/guardian.xml)
+ - source004 [https://feedx.net/rss/ap.xml](https://feedx.net/rss/ap.xml) -> [ap.xml](rss/ap.xml)
+ - source005 [https://feedx.net/rss/economist.xml](https://feedx.net/rss/economist.xml) -> [economist.xml](rss/economist.xml)
+ - source006 [https://feedx.net/rss/economistp.xml](https://feedx.net/rss/economistp.xml) -> [economistp.xml](rss/economistp.xml)
+ - source007 [https://feedx.net/rss/reutersen.xml](https://feedx.net/rss/reutersen.xml) -> [reutersen.xml](rss/reutersen.xml)
