@@ -1,22 +1,34 @@
+import json
 import re
 from xml.dom.minidom import parseString
 
 import jinja2
+from parsel import Selector
 
 from utils import fetch
 import requests
-
 domain = 'https://rsshub.rssforever.com/telegram/channel/'
-
+jsons ={}
+jsont ={}
 def parse(post):
+    global jsons,jsont
     item={}
-
     description = post.getElementsByTagName('description')[0].childNodes[0].data
     list = re.findall(r'</a> <a href="(.+?)"', description)
     if not list:
         item['title']='delete'
     else:
-        tree = fetch(list[0])
+        if list[0] in jsons:
+            tree = Selector(text=jsons[list[0]])
+            jsont[list[0]]=jsons[list[0]]
+        else:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
+            res = requests.get(list[0], headers=headers, verify=False)
+            res.encoding = "utf-8"
+            res.raise_for_status()
+            tree = Selector(text=res.text)
+            jsont[list[0]] = res.text
         if not tree.css('span[id=copyright_logo]'):
             item['title']='delete'
         else:
@@ -31,10 +43,18 @@ def parse(post):
     return item
 
 def ctx(category=''):
+    global jsons,jsont
+    with open('rss/link.json', 'r', encoding="UTF-8") as fs:
+        txt=fs.read()
+        jsons = json.loads(txt)
     url=f'{domain}{category}'
     tree=parseString(requests.get(url,verify=False).text).documentElement
     posts=tree.getElementsByTagName('item')
     items= list(map(parse,posts))
+
+    with open('rss/link.json', 'w', encoding="UTF-8") as ft:
+        ft.write(json.dumps(jsont))
+
     for item in items[:]:
         if item['title'] == 'delete':
             items.remove(item)
@@ -51,5 +71,5 @@ if __name__ == '__main__':
     contentrssxml = f.read()
     template = jinja2.Template(contentrssxml)
 
-    with open('rss/shishijuhe.xml', 'w', encoding="UTF-8") as fdacankao:
-        fdacankao.write(template.render(ctx(category='wechatefb')))
+    with open('rss/shishijuhe.xml', 'w', encoding="UTF-8") as f:
+        f.write(template.render(ctx(category='wechatefb')))
