@@ -100,7 +100,8 @@ def tran(sec):
 
     print("GT: "+ url +" > "+ out_dir)
 
-f = open("rss.xml",encoding="UTF-8")
+
+f = open("rss.xml", encoding="UTF-8")
 contentrssxml = f.read()
 template = jinja2.Template(contentrssxml)
 
@@ -112,8 +113,11 @@ if datetime.datetime.now().hour%2==0 and datetime.datetime.now().minute<12:
     with open('rss/dacankao.xml','w',encoding="UTF-8") as fdacankao:
         fdacankao.write(template.render(dacankao.ctx(44)))
 
-with open('rss/shishijuhe.xml', 'w', encoding="UTF-8") as fdacankao:
-    fdacankao.write(template.render(shishijuhe.ctx(category='wechatefb')))
+dict = {'shishijuhe': 'rss/shishijuhe.xml', 'renjianbaitai': 'rss/renjianbaitai.xml',
+        'guandianshuping': 'rss/guandianshuping.xml'}
+for key in dict:
+    with open(dict[key], 'w', encoding="UTF-8") as f:
+        f.write(template.render(shishijuhe.ctx(category=key)))
 
 with open('test.ini','w') as configfile:
     config.write(configfile)

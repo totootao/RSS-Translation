@@ -44,7 +44,7 @@ def parse(post):
 
 def ctx(category=''):
     global jsons,jsont
-    with open('rss/link.json', 'r', encoding="UTF-8") as fs:
+    with open(f'rss/{category}.json', 'r', encoding="UTF-8") as fs:
         txt=fs.read()
         jsons = json.loads(txt)
     url=f'{domain}{category}'
@@ -52,7 +52,7 @@ def ctx(category=''):
     posts=tree.getElementsByTagName('item')
     items= list(map(parse,posts))
 
-    with open('rss/link.json', 'w', encoding="UTF-8") as ft:
+    with open(f'rss/{category}.json', 'w', encoding="UTF-8") as ft:
         ft.write(json.dumps(jsont))
 
     for item in items[:]:
@@ -71,5 +71,7 @@ if __name__ == '__main__':
     contentrssxml = f.read()
     template = jinja2.Template(contentrssxml)
 
-    with open('rss/shishijuhe.xml', 'w', encoding="UTF-8") as f:
-        f.write(template.render(ctx(category='wechatefb')))
+    dict = {'shishijuhe':'rss/shishijuhe.xml','renjianbaitai':'rss/renjianbaitai.xml','guandianshuping':'rss/guandianshuping.xml'}
+    for key in dict:
+        with open(dict[key], 'w', encoding="UTF-8") as f:
+            f.write(template.render(ctx(category=key)))
