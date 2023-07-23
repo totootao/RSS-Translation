@@ -16,7 +16,7 @@ def parse(post):
     description = post.getElementsByTagName('description')[0].childNodes[0].data
     list = re.findall(r'</a> <a href="(.+?)"', description)
     if not list:
-        item['title']='delete'
+        item['flag']='delete'
     else:
         if list[0] in jsons:
             tree = Selector(text=jsons[list[0]])
@@ -30,16 +30,17 @@ def parse(post):
             tree = Selector(text=res.text)
             jsont[list[0]] = res.text
         if not tree.css('span[id=copyright_logo]'):
-            item['title']='delete'
+            item['flag']='feiyuanchuang'
         else:
-            page_content= tree.css('div[id=page-content]').get()
-            if page_content is None:
-                item['title']='delete'
-            else:
-                item['description'] = page_content.replace('\n','').replace('\r','')
-                item['title'] = post.getElementsByTagName('title')[0].childNodes[0].data
-                item['link'] = post.getElementsByTagName('link')[0].childNodes[0].data
-                item['pubDate'] = post.getElementsByTagName('pubDate')[0].childNodes[0].data
+            item['flag'] = 'yuanchuang'
+        page_content= tree.css('div[id=page-content]').get()
+        if page_content is None:
+            item['flag']='delete'
+        else:
+            item['description'] = page_content.replace('\n','').replace('\r','')
+            item['title'] = post.getElementsByTagName('title')[0].childNodes[0].data
+            item['link'] = post.getElementsByTagName('link')[0].childNodes[0].data
+            item['pubDate'] = post.getElementsByTagName('pubDate')[0].childNodes[0].data
     return item
 
 def ctx(category=''):
@@ -54,6 +55,11 @@ def ctx(category=''):
 
     with open(f'rss/{category}.json', 'w', encoding="UTF-8") as ft:
         ft.write(json.dumps(jsont))
+
+    for item in items[:]:
+        if item['flag'] == 'delete':
+            items.remove(item)
+
     all= {
         'title':'时事聚合-原文',
         'description':'通过全球政治经济评论,预知世界局势发展,把握外汇期货证券行情运行趋势,为您的生活理财服务。',
@@ -61,9 +67,11 @@ def ctx(category=''):
         'author':'totootao',
         'items':items
     }
+
     for item in items[:]:
-        if item['title'] == 'delete':
+        if item['flag'] == 'feiyuanchuang':
             items.remove(item)
+
     yuanchuang= {
         'title':'时事聚合-原文',
         'description':'通过全球政治经济评论,预知世界局势发展,把握外汇期货证券行情运行趋势,为您的生活理财服务。',
