@@ -2,13 +2,13 @@
 import configparser
 import datetime
 
+import jinja2
 import requests
 from pygtrans import Translate
 import xml.etree.cElementTree as et
 import os
 import hashlib
 import dacankao
-import jinja2
 
 import shishijuhe
 
@@ -100,7 +100,6 @@ def tran(sec):
 
     print("GT: "+ url +" > "+ out_dir)
 
-
 f = open("rss.xml", encoding="UTF-8")
 contentrssxml = f.read()
 template = jinja2.Template(contentrssxml)
@@ -113,11 +112,9 @@ if datetime.datetime.now().hour%2==0 and datetime.datetime.now().minute<12:
     with open('rss/dacankao.xml','w',encoding="UTF-8") as fdacankao:
         fdacankao.write(template.render(dacankao.ctx(44)))
 
-dict = {'shishijuhe': 'rss/shishijuhe.xml', 'renjianbaitai': 'rss/renjianbaitai.xml',
-        'guandianshuping': 'rss/guandianshuping.xml'}
+dict = {'shishijuhe': '', 'renjianbaitai': '', 'guandianshuping': '', 'othersiii': ''}
 for key in dict:
-    with open(dict[key], 'w', encoding="UTF-8") as f:
-        f.write(template.render(shishijuhe.ctx(category=key)))
+    shishijuhe.ctx(category=key)
 
 with open('test.ini','w') as configfile:
     config.write(configfile)

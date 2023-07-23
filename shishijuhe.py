@@ -54,11 +54,17 @@ def ctx(category=''):
 
     with open(f'rss/{category}.json', 'w', encoding="UTF-8") as ft:
         ft.write(json.dumps(jsont))
-
+    all= {
+        'title':'时事聚合-原文',
+        'description':'通过全球政治经济评论,预知世界局势发展,把握外汇期货证券行情运行趋势,为您的生活理财服务。',
+        'link':'http://www.dacankao.com/',
+        'author':'totootao',
+        'items':items
+    }
     for item in items[:]:
         if item['title'] == 'delete':
             items.remove(item)
-    return {
+    yuanchuang= {
         'title':'时事聚合-原文',
         'description':'通过全球政治经济评论,预知世界局势发展,把握外汇期货证券行情运行趋势,为您的生活理财服务。',
         'link':'http://www.dacankao.com/',
@@ -66,12 +72,18 @@ def ctx(category=''):
         'items':items
     }
 
-if __name__ == '__main__':
     f = open("rss.xml", encoding="UTF-8")
     contentrssxml = f.read()
     template = jinja2.Template(contentrssxml)
 
-    dict = {'shishijuhe':'rss/shishijuhe.xml','renjianbaitai':'rss/renjianbaitai.xml','guandianshuping':'rss/guandianshuping.xml'}
+    with open(f'rss/{category}-yuanchuang.xml', 'w', encoding="UTF-8") as f:
+        f.write(template.render(yuanchuang))
+
+    with open(f'rss/{category}-all.xml', 'w', encoding="UTF-8") as f:
+        f.write(template.render(all))
+
+
+if __name__ == '__main__':
+    dict = {'shishijuhe':'','renjianbaitai':'','guandianshuping':'','othersiii':''}
     for key in dict:
-        with open(dict[key], 'w', encoding="UTF-8") as f:
-            f.write(template.render(ctx(category=key)))
+        ctx(category=key)
