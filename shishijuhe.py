@@ -1,4 +1,5 @@
 import json
+import os
 import re
 from xml.dom.minidom import parseString
 
@@ -45,6 +46,11 @@ def parse(post):
 
 def ctx(category=''):
     global jsons,jsont
+
+    if not os.path.exists(f'rss/{category}.json'):
+        with open(f'rss/{category}.json', 'w', encoding='utf-8') as f:
+            f.write("{}")
+
     with open(f'rss/{category}.json', 'r', encoding="UTF-8") as fs:
         txt=fs.read()
         jsons = json.loads(txt)
