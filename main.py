@@ -112,7 +112,8 @@ if datetime.datetime.now().hour%2==0 and datetime.datetime.now().minute<12:
     with open('rss/dacankao.xml','w',encoding="UTF-8") as fdacankao:
         fdacankao.write(template.render(dacankao.ctx(44)))
 
-dict = {'shishijuhe': '', 'renjianbaitai': '', 'guandianshuping': '', 'othersiii': ''}
+dict = {'shishijuhe': '', 'renjianbaitai': '', 'guandianshuping': '', 'kexuejishui': '', 'huanyushijie': '',
+        'jinjinyouweii': '', 'xiaodaoxiaoxii': ''}
 for key in dict:
     shishijuhe.ctx(category=key)
 

@@ -92,6 +92,6 @@ def ctx(category=''):
 
 
 if __name__ == '__main__':
-    dict = {'shishijuhe':'','renjianbaitai':'','guandianshuping':'','othersiii':''}
+    dict = {'shishijuhe':'','renjianbaitai':'','guandianshuping':'','kexuejishui':'','huanyushijie':'','jinjinyouweii':'','xiaodaoxiaoxii':''}
     for key in dict:
         ctx(category=key)
