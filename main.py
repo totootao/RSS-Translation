@@ -113,7 +113,7 @@ if datetime.datetime.now().hour%2==0 and datetime.datetime.now().minute<12:
         fdacankao.write(template.render(dacankao.ctx(44)))
 
 dict = {'shishijuhe': '', 'renjianbaitai': '', 'guandianshuping': '', 'kexuejishui': '', 'huanyushijie': '',
-        'jinjinyouweii': '', 'xiaodaoxiaoxii': ''}
+        'jinjinyouweii': '', 'xiaodaoxiaoxii': '', 'zhongyiii': '', 'zhanzhengjunshi': ''}
 for key in dict:
     shishijuhe.ctx(category=key)
 
