@@ -18,6 +18,7 @@ def parse(post):
     list = re.findall(r'</a> <a href="(.+?)"', description)
     if not list:
         item['flag']='delete'
+        return item
     else:
         if list[0] in jsons:
             tree = Selector(text=jsons[list[0]])
@@ -40,7 +41,7 @@ def parse(post):
         else:
             item['description'] = page_content.replace('\n','').replace('\r','')
             item['title'] = post.getElementsByTagName('title')[0].childNodes[0].data
-            item['link'] = post.getElementsByTagName('link')[0].childNodes[0].data
+            item['link'] = list[0]
             item['pubDate'] = post.getElementsByTagName('pubDate')[0].childNodes[0].data
     return item
 
